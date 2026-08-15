@@ -124,4 +124,4 @@ All tunables live in `core/config.py` and are overridable via environment variab
 
 ## License
 
-Proprietary — internal engineering deliverable.
+MIT License — see [LICENSE](./LICENSE) for details.
