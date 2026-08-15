@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/Revision%20Extraction-Gated-b45309?style=flat-square" alt="Revision Extraction: Gated"/>
   <img src="https://img.shields.io/badge/License-Proprietary-6b7280?style=flat-square" alt="License: Proprietary"/>
 </p>
-# ClearText
+ClearText
 
 **Universal, cross-platform document optimization tool** that detects and strips unwanted black borders, scanner artifact margins, and invalid digital overlay shapes from PDFs and standard document images (PNG, JPEG, TIFF).
 
