@@ -1,0 +1,185 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ClearText — Universal Document Optimization">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#0f1b2d"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+
+    <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#67e8f9" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e2f8ff"/>
+      <stop offset="100%" stop-color="#7dd3fc"/>
+    </linearGradient>
+
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="4.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Reveal clip: sweeps left-to-right to wipe the dirty doc into the clean one -->
+    <clipPath id="revealClip">
+      <rect x="0" y="0" width="0" height="180">
+        <animate attributeName="width" values="0;190;190;0;0" keyTimes="0;0.42;0.5;0.92;1" dur="4.5s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+
+    <pattern id="gridPattern" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#1e2b40" stroke-width="1"/>
+    </pattern>
+
+    <style>
+      <![CDATA[
+        .grid { opacity: 0.55; }
+        .scanbeam {
+          animation: sweepMove 4.5s cubic-bezier(0.45,0,0.2,1) infinite;
+        }
+        @keyframes sweepMove {
+          0%   { transform: translateX(0px);   opacity: 0; }
+          4%   { opacity: 1; }
+          42%  { transform: translateX(190px); opacity: 1; }
+          50%  { transform: translateX(190px); opacity: 0; }
+          50.1%{ transform: translateX(0px);   opacity: 0; }
+          54%  { opacity: 1; }
+          92%  { transform: translateX(190px); opacity: 1; }
+          100% { transform: translateX(190px); opacity: 0; }
+        }
+        .pulse-dot {
+          animation: pulseDot 2.4s ease-in-out infinite;
+          transform-origin: center;
+        }
+        @keyframes pulseDot {
+          0%, 100% { opacity: 0.35; r: 4.5; }
+          50%      { opacity: 1;    r: 6.5; }
+        }
+        .lock-glow {
+          animation: lockPulse 2.4s ease-in-out infinite;
+        }
+        @keyframes lockPulse {
+          0%, 100% { opacity: 0.55; }
+          50%      { opacity: 1; }
+        }
+        .chip {
+          animation: chipFade 6s ease-in-out infinite;
+        }
+        .chip2 { animation-delay: 0.4s; }
+        .chip3 { animation-delay: 0.8s; }
+        .chip4 { animation-delay: 1.2s; }
+        @keyframes chipFade {
+          0%, 100% { opacity: 0.75; }
+          50%      { opacity: 1; }
+        }
+        .title-shimmer {
+          animation: shimmer 5s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+          0%, 100% { opacity: 0.92; }
+          50%      { opacity: 1; }
+        }
+      ]]>
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bgGrad)"/>
+  <rect width="1200" height="300" fill="url(#gridPattern)" class="grid"/>
+  <rect width="1200" height="300" fill="none" stroke="#1e2b40" stroke-width="2"/>
+
+  <!-- ===================== Document icon / reveal demo ===================== -->
+  <g transform="translate(70, 60)">
+    <!-- "Dirty" document: black border artifact + scanner margin -->
+    <g>
+      <rect x="0" y="0" width="190" height="180" rx="6" fill="#101826" stroke="#2a3b52" stroke-width="2"/>
+      <!-- black border artifact bars (what ClearText removes) -->
+      <rect x="0" y="0" width="22" height="180" fill="#000000"/>
+      <rect x="0" y="150" width="190" height="30" fill="#000000"/>
+      <!-- faux text lines -->
+      <rect x="34" y="20" width="120" height="7" rx="3" fill="#3b4a63"/>
+      <rect x="34" y="38" width="140" height="7" rx="3" fill="#3b4a63"/>
+      <rect x="34" y="56" width="100" height="7" rx="3" fill="#3b4a63"/>
+      <rect x="34" y="74" width="130" height="7" rx="3" fill="#3b4a63"/>
+      <rect x="34" y="92" width="90"  height="7" rx="3" fill="#3b4a63"/>
+      <rect x="34" y="110" width="125" height="7" rx="3" fill="#3b4a63"/>
+    </g>
+
+    <!-- "Clean" document, revealed by the sweeping clip -->
+    <g clip-path="url(#revealClip)">
+      <rect x="0" y="0" width="190" height="180" rx="6" fill="#0d1420" stroke="#22d3ee" stroke-width="2"/>
+      <rect x="18" y="20" width="130" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="38" width="150" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="56" width="110" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="74" width="140" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="92" width="95"  height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="110" width="132" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="128" width="105" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="146" width="150" height="7" rx="3" fill="#67e8f9"/>
+      <rect x="18" y="164" width="80"  height="7" rx="3" fill="#67e8f9"/>
+    </g>
+
+    <!-- scanning beam -->
+    <g class="scanbeam">
+      <rect x="-8" y="-6" width="16" height="192" fill="url(#beamGrad)" filter="url(#glow)"/>
+    </g>
+  </g>
+
+  <!-- ===================== Wordmark + tagline ===================== -->
+  <g transform="translate(330, 108)">
+    <text x="0" y="0" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="64" font-weight="700"
+          fill="url(#titleGrad)" class="title-shimmer">Clear<tspan fill="#22d3ee">Text</tspan></text>
+    <text x="3" y="38" font-family="Consolas, 'Courier New', monospace" font-size="16.5" letter-spacing="0.5"
+          fill="#93a5c2">Universal Document Optimization &amp; Forensics Engine</text>
+
+    <!-- feature chips -->
+    <g font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#7dd3fc">
+      <g class="chip">
+        <rect x="3" y="56" width="118" height="24" rx="12" fill="#0e2233" stroke="#1f4a63"/>
+        <text x="17" y="72">Border Strip</text>
+      </g>
+      <g class="chip chip2">
+        <rect x="129" y="56" width="140" height="24" rx="12" fill="#0e2233" stroke="#1f4a63"/>
+        <text x="143" y="72">Redaction Audit</text>
+      </g>
+      <g class="chip chip3">
+        <rect x="277" y="56" width="163" height="24" rx="12" fill="#0e2233" stroke="#1f4a63"/>
+        <text x="291" y="72">Revision Forensics</text>
+      </g>
+      <g class="chip chip4">
+        <rect x="448" y="56" width="145" height="24" rx="12" fill="#0e2233" stroke="#1f4a63"/>
+        <circle cx="464" cy="68" r="4.5" fill="#34d399" class="pulse-dot"/>
+        <text x="476" y="72">Zero-Retention</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===================== Lock / security glyph, far right ===================== -->
+  <g transform="translate(1108, 130)" class="lock-glow" filter="url(#softGlow)">
+    <rect x="-22" y="-4" width="44" height="34" rx="6" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+    <path d="M -13 -4 L -13 -18 A 13 13 0 0 1 13 -18 L 13 -4" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+    <circle cx="0" cy="14" r="3.4" fill="#22d3ee"/>
+  </g>
+
+  <!-- Bottom rule -->
+  <line x1="70" y1="266" x2="1130" y2="266" stroke="#1e2b40" stroke-width="1.5"/>
+  <text x="70" y="286" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#5b6b85">
+    PDF &#183; PNG &#183; JPEG &#183; TIFF
+  </text>
+  <text x="1130" y="286" text-anchor="end" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#5b6b85">
+    FastAPI &#183; Celery &#183; OpenCV &#183; PyMuPDF
+  </text>
+</svg>
