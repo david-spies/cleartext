@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # No AOF/RDB persistence — result payloads should never survive a restart
+    # beyond their in-memory TTL, in keeping with zero-retention.
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+  api:
+    build: .
+    command: uvicorn cleartext.api.main:app --host 0.0.0.0 --port 8000 --workers 2
+    ports:
+      - "8000:8000"
+    environment:
+      CT_CELERY_BROKER_URL: redis://redis:6379/0
+      CT_CELERY_BACKEND_URL: redis://redis:6379/1
+      CT_ALLOWED_ORIGINS: "https://app.example.com"
+      CT_MAX_UPLOAD_BYTES: "52428800"
+      CT_JOB_TTL_SECONDS: "900"
+    depends_on:
+      - redis
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: "1.0"
+
+  worker:
+    build: .
+    command: celery -A cleartext.worker.celery_app worker --loglevel=info --concurrency=4
+    environment:
+      CT_CELERY_BROKER_URL: redis://redis:6379/0
+      CT_CELERY_BACKEND_URL: redis://redis:6379/1
+      CT_PROCESSING_TIMEOUT_SECONDS: "90"
+    depends_on:
+      - redis
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          memory: 1g
+          cpus: "1.0"
