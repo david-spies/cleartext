@@ -1,3 +1,5 @@
+# ClearText
+
 <p align="left">
   <img src="assets/cleartext_banner.svg" alt="ClearText — Universal Document Optimization &amp; Forensics Engine" width="100%" />
 </p>
@@ -16,7 +18,6 @@
   <img src="https://img.shields.io/badge/Revision%20Extraction-Gated-b45309?style=flat-square" alt="Revision Extraction: Gated"/>
   <img src="https://img.shields.io/badge/License-Proprietary-6b7280?style=flat-square" alt="License: Proprietary"/>
 </p>
-ClearText
 
 **Universal, cross-platform document optimization tool** that detects and strips unwanted black borders, scanner artifact margins, and invalid digital overlay shapes from PDFs and standard document images (PNG, JPEG, TIFF).
 
@@ -41,17 +42,21 @@ It's built as a zero-retention SaaS backend: FastAPI for the API layer, Celery +
 ```
 cleartext/
 ├── core/
-│   ├── config.py           # centralized settings (limits, thresholds)
-│   ├── validation.py       # file sanitization & exploit screening
-│   ├── vector_pipeline.py  # PyMuPDF-based digital PDF cleanup
-│   ├── raster_pipeline.py  # OpenCV-based scanned image cleanup
-│   └── processor.py        # pipeline router + orchestration
+│   ├── config.py              # centralized settings (limits, thresholds)
+│   ├── validation.py          # file sanitization & exploit screening
+│   ├── vector_pipeline.py     # PyMuPDF-based digital PDF cleanup
+│   ├── raster_pipeline.py     # OpenCV-based scanned image cleanup
+│   ├── redaction_audit.py     # read-only redaction integrity audit
+│   ├── revision_forensics.py  # incremental-save discovery + gated extraction
+│   └── processor.py           # pipeline router + orchestration
 ├── api/
-│   ├── main.py              # FastAPI app, endpoints
-│   └── schemas.py           # pydantic request/response models
+│   ├── main.py                 # FastAPI app, endpoints
+│   └── schemas.py               # pydantic request/response models
 ├── worker/
-│   ├── celery_app.py        # Celery config (Redis broker)
-│   └── tasks.py              # async job execution
+│   ├── celery_app.py            # Celery config (Redis broker)
+│   └── tasks.py                  # async job execution
+├── assets/
+│   └── cleartext_banner.svg    # animated README banner (GitHub-native SVG)
 ├── requirements.txt
 ├── Dockerfile
 └── docker-compose.yml
@@ -124,4 +129,5 @@ All tunables live in `core/config.py` and are overridable via environment variab
 
 ## License
 
-MIT License — see [LICENSE](./LICENSE) for details.
+Proprietary — internal engineering deliverable. See [`LICENSE`](LICENSE) — replace the placeholder owner name there (and swap in an open-source license instead if that's the intent).
+
